@@ -19,7 +19,8 @@ function initMap() {
     var markers = locations.map(function(location, i) { // Using the map method to loop over the index and add the label to the locations
         return new google.maps.Marker({
             position: location,
-            label: labels[i % labels.length] // Using the modulo so that if there are more locations than lables. It will start again using the labels for the extra locations
+            icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png', // Changing the map marker icon. Can be a hosted or a local custom file
+            label: labels[i % labels.length] // Using the modulo so that if there are more locations than labels. It will start again using the labels for the extra locations
         });
     });
 
