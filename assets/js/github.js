@@ -86,6 +86,9 @@ function fetchGitHubInformation (event) {
             if(errorResponse.status === 404) { // Checking the error status that was returned from the api to the webpage
                 $('#gh-user-data').html(
                     `<h2 style="padding-top:20px>Error: User was not found... Please try again</h2>`)
+            } else if (errorResponse.status === 403) { // Github api throttle limit
+              var resetTime = new Date(errorResponse.getResponseHeader('X-RateLimit-Reset')*1000)  // Lets us know when we can use the api again once the time has been reset.
+              $('#gh-user-data').html(`<h4 style="padding-top 20px">Too many requests. Please try again at: ${resetTime.toLocaleTimeString()}</h4>`)
             } else { // Incase the error was not a 404 response
                 console.log(errorResponse)
                 $('#gh-user-data').html( // Then telling the user what error has been returned. 
