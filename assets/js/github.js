@@ -1,3 +1,35 @@
+/**
+ * Displays the user information onto the DOM model. For the end user of the site to see.
+ * Giving links to all users Repo's.  
+ * 
+ * Taking one parameter which its whats returned from the github API. Which allows us to display
+ * What we are intending
+ */
+function userInformationHtml (user) {
+    console.log(user) // Showing all the returned properties of the user object
+    return `
+    <h2 style="padding-top: 20px">${user.name}
+        <span class="small-name">
+            (@<a style="padding-top: 20px" target="_blank" href="${user.html_url}">${user.login}</a>)
+        </span>
+    </h2>
+    <div class="gh-content">
+        <div class="gh-avatar">
+            <a href="${user.html_url}" target="_blank">
+                <img src="${user.avatar_url}" alt="Github user: ${user.name}" width="80px" height="80px">
+            </a>
+        </div>
+        <p>
+            Followers: ${user.followers} - Following: ${user.following} <br> Repo's: ${user.public_repos}
+        </p>
+    </div>`
+}
+
+/** 
+ * Fetches the user information from the github API. Returning that to the request
+ * And storing that for us to manipulate and show to the end user of the site. 
+ * Also checking for any errors and responding accordingly.
+ */
 function fetchGitHubInformation (event) {
     var username = $('#gh-username').val()
     if (!username) {
@@ -26,8 +58,4 @@ function fetchGitHubInformation (event) {
             }
         }
     )
-}
-
-function userInformationHtml () {
-    
 }
