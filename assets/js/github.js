@@ -25,6 +25,35 @@ function userInformationHtml (user) {
     </div>`
 }
 
+/**
+ * Displays the selected user repo information on the DOM model.
+ * If the user doesn't have any repos, a message will be displayed letting the user
+ * know this information 
+ */
+function repoInformationHtml(repos) {
+    // Checking to see if the user has no public repos
+    if (repos.length == 0) {
+        return `<div class="clearfix repo-list">No repos!</div>`;
+    }
+
+    // Creating the list items of each repo using the map method
+    var listItemsHTML = repos.map(function(repo) {
+        return `<li>
+                    <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+                </li>`;
+    });
+
+
+    // Displaying the list items created on the DOM
+    return `<div class="clearfix repo-list">
+                <p>
+                    <strong>Repo List:</strong>
+                </p>
+                <ul class="repo-list clearfix">
+                    ${listItemsHTML.join("\n")}
+                </ul>
+            </div>`;
+}
 /** 
  * Fetches the user information from the github API. Returning that to the request
  * And storing that for us to manipulate and show to the end user of the site. 
