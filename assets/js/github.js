@@ -60,8 +60,12 @@ function repoInformationHtml(repos) {
  * Also checking for any errors and responding accordingly.
  */
 function fetchGitHubInformation (event) {
+    // Clearing any data that was left behind from a previous search
+    $('#gh-user-data').html('')
+    $('#gh-repo-data').html('')
+
     var username = $('#gh-username').val()
-    if (!username) {
+    if (!username) { 
         $('#gh-user-data').html(`<h2 style="padding-top: 20px">Please enter a Github username</h2>`)
         return;
     }
@@ -91,3 +95,7 @@ function fetchGitHubInformation (event) {
         }
     )
 }
+
+$(document).ready(fetchGitHubInformation) 
+// Has the page automatically filled with the users information that is set by the developer when the page is fully loaded.
+// So that it is not just a blank page waiting on the users interactions
